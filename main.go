@@ -1,9 +1,7 @@
 package main
 
 import (
-	"embed"
 	"gubuk-service/config"
-	"io/fs"
 	"log"
 	"net/http"
 	"strings"
@@ -12,29 +10,6 @@ import (
 	"github.com/gin-gonic/contrib/static"
 	"github.com/gin-gonic/gin"
 )
-
-//go:embed build/*
-var client embed.FS
-
-type embedFileSystem struct {
-	http.FileSystem
-	indexes bool
-}
-
-func (e embedFileSystem) Exists(prefix string, path string) bool {
-	f, err := e.Open(path)
-	if err != nil {
-		return false
-	}
-
-	// check if indexing is allowed
-	s, _ := f.Stat()
-	if s.IsDir() && !e.indexes {
-		return false
-	}
-
-	return true
-}
 
 func main() {
 	router := gin.Default()
@@ -47,11 +22,7 @@ func main() {
 	}))
 
 	// Client
-	subFS, _ := fs.Sub(client, "build")
-	staticServer := static.Serve("/", embedFileSystem{
-		FileSystem: http.FS(subFS),
-		indexes:    true,
-	})
+	staticServer := static.Serve("/", static.LocalFile("./build", true))
 	router.Use(staticServer)
 	router.NoRoute(func(c *gin.Context) {
 		if c.Request.Method == http.MethodGet &&
