@@ -25,7 +25,7 @@ func init() {
 	ServerAddress = os.Getenv("SERVER_ADDRESS")
 	SecretKey = os.Getenv("SECRET_KEY")
 	CloudinaryName = os.Getenv("CLOUDINARY_NAME")
-	SecretKey = os.Getenv("CLOUDINARY_KEY")
-	SecretKey = os.Getenv("CLOUDINARY_SECRET")
+	CloudinaryKey = os.Getenv("CLOUDINARY_KEY")
+	CloudinarySecret = os.Getenv("CLOUDINARY_SECRET")
 	DBSource = os.Getenv("DB_SOURCE")
 }
