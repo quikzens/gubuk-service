@@ -1,3 +1,4 @@
+// +heroku goVersion go1.18.0
 module gubuk-service
 
 go 1.18
