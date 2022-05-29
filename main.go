@@ -35,5 +35,9 @@ func main() {
 
 	SetRoutes(router)
 
-	log.Fatal(router.Run(config.ServerAddress))
+	if config.Port != "" {
+		log.Fatal(router.Run("0.0.0.0:" + config.Port))
+	} else {
+		log.Fatal(router.Run(config.ServerAddress))
+	}
 }

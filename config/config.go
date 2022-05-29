@@ -8,6 +8,7 @@ import (
 )
 
 var (
+	Port             string
 	ServerAddress    string
 	SecretKey        string
 	CloudinaryName   string
@@ -22,6 +23,7 @@ func init() {
 		log.Println("Couldn't loading .env file")
 	}
 
+	Port = os.Getenv("PORT")
 	ServerAddress = os.Getenv("SERVER_ADDRESS")
 	SecretKey = os.Getenv("SECRET_KEY")
 	CloudinaryName = os.Getenv("CLOUDINARY_NAME")
